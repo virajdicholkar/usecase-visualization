@@ -1,0 +1,20 @@
+{
+    "runbook": "R1",
+    "children": [{
+        "isFirst": true,
+        "runbook": "R1",
+        "children": [{
+                "condition": "On Success",
+                "runbook": "STOP",
+                "id": "2",
+                "children": []
+            },
+            {
+                "condition": "On Error",
+                "runbook": "STOP",
+                "id": "4",
+                "children": []
+            }
+        ]
+    }]
+}

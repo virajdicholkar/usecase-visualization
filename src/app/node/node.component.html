@@ -1,0 +1,34 @@
+<div class="hv-item">
+    <div class="hv-item-parent" *ngIf="node.children.length > 0 && !shouldHideChildren(node.id)">
+        <div [ngClass]="node.id == getSelectedNodeID() ? 'simple-card-highlighted': 'simple-card-not-highlighted'">
+            <button id="expandbutton" class="expand-button rotated-button"></button>
+            <div *ngIf="node.condition">{{node.condition}}</div>
+            <div>
+                <div>{{node.runbook}}</div>
+                <select class="form-select" (ngModelChange)="addChild(node, $event)" [(ngModel)]="node.runbook">
+                    <option *ngIf="!node.isFirst" value="STOP">STOP</option>
+                    <option value="R1">R1</option>
+                    <option value="R2">R2</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="hv-item-children" *ngIf="node.children.length > 0 && !shouldHideChildren(node.id)">
+        <div class="hv-item-child onlyfirst" *ngFor="let child of node.children">
+            <app-node *ngIf="child.children.length > 0" [node]="child"></app-node>
+            <div class="hv-item" *ngIf="child.children.length == 0">
+                <div [ngClass]="child.id == getSelectedNodeID() ? 'simple-card-highlighted': 'simple-card-not-highlighted'">
+                    <div *ngIf="child.condition">{{child.condition}}</div>
+                    <div>
+                        <div>{{child.runbook}}</div>
+                        <select class="form-select" (ngModelChange)="addChild(child, $event)" [(ngModel)]="child.runbook">
+                            <option value="STOP">STOP</option>
+                            <option value="R1">R1</option>
+                            <option value="R2">R2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
